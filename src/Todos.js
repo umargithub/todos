@@ -1,27 +1,20 @@
-import React, { useState } from 'react';
+import TodoItem from './TodoItem';
 
 function Todos({ todos, setTodos }) {
 
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [editText, setEditText] = useState('');
-
-  const handleEdit = (index, text) => {
-      setEditingIndex(index);
-      setEditText(text);
-  };
-
-  const handleSave = (index) => {
+  const handleSave = (index, text) => {
+      console.log(text)
       const updatedTodos = todos.map((todo, i) => {
           if (i === index) {
-              return editText;
+              return text;
           }
           return todo;
       });
       setTodos(updatedTodos);
-      setEditingIndex(null);
   };
 
   const handleDelete = (index) => {
+      console.log(index)
       const updatedTodos = todos.filter((_, i) => i !== index);
       setTodos(updatedTodos);
   };
@@ -31,36 +24,17 @@ function Todos({ todos, setTodos }) {
         <h2>Todos list</h2>
         <ul className="items">
             {todos.map((todo, index) => (
-                <li className="item" key={index}>
-                    {editingIndex === index ? (
-                        <input
-                            type="text"
-                            value={editText}
-                            onChange={(e) => setEditText(e.target.value)}
-                        />
-                    ) : (
-                        <>
-                            <input type="checkbox" id={`checkbox${index}`} />
-                            <label htmlFor={`checkbox${index}`}>{todo}</label>
-                        </>
-                    )}
-                    {editingIndex === index ? (
-                        <span className="icon save-icon" onClick={() => handleSave(index)}>
-                            <i className="fas fa-save"></i>
-                        </span>
-                    ) : (
-                        <span className="icon edit-icon" onClick={() => handleEdit(index, todo)}>
-                            <i className="fas fa-edit"></i>
-                        </span>
-                    )}
-                    <span className="icon trash-icon" onClick={() => handleDelete(index)}>
-                        <i className="fas fa-trash-alt"></i>
-                    </span>
-                </li>
+                <TodoItem
+                    key={index}
+                    index={index}
+                    todo={todo}
+                    handleSave={(updatedTodo) => handleSave(index, updatedTodo)}
+                    handleDelete={() => handleDelete(index)}
+                />
             ))}
         </ul>
     </div>
-);
+  );
 }
 
 export default Todos;
