@@ -1,38 +1,100 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 500px;
+  /* border: 1px dashed maroon;
+  border-radius: 10px; */
+  padding: 20px;
+  margin: 0 auto;
+  font-size: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+h1, h2 {
+  font-size: 30px;
+  color: maroon
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+form {
+  display: flex;
+  /* flex-direction: column; */
+}
+
+input {
+  padding: 10px;
+  width: 200px;
+  border: none;
+  border-bottom: 2px solid maroon;
+  margin: 10px;
+  font-size: 20px;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+button {
+  padding: 0px 40px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  background: maroon;
+  color: #fff;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Hide default checkboxes */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Style custom checkboxes */
+input[type="checkbox"] + label::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid maroon; /* Border color */
+  background-color: white; /* Initial background color */
+  margin-right: 8px;
+  border-radius: 2px; /* Optional: Round corners */
+}
+
+/* Style checked custom checkboxes */
+input[type="checkbox"]:checked + label::before {
+  background-color: maroon; /* Checked background color */
+  content: "\2713"; /* Checkmark symbol */
+  text-align: center;
+  font-size: 12px;
+  line-height: 16px;
+  color: white; 
+}
+
+.icon {
+  margin-left: 8px; /* Adjust spacing between icons */
+}
+
+.edit-icon, .trash-icon, .save-icon {
+  margin-left: auto;
+  margin-left: 10px;
+  color: maroon; /* Color of the icons */
+  cursor: pointer;
+}
+
+.edit-icon:hover, .trash-icon:hover, .save-icon:hover {
+  color: red; /* Change color on hover */
+}
+
+.item {
+  display: flex;
+  justify-content:space-between;
+  margin: 10px 0;
+}
+
+label {
+  flex-grow: 1;
 }
