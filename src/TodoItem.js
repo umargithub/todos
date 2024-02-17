@@ -1,18 +1,8 @@
-import React, { useState } from 'react';
-
-function TodoItem({ index, todo, handleDelete, handleSave }) {
-
-    const [editing, setEditing] = useState(false);
-    const [editText, setEditText] = useState('');
-
-    const handleEdit = (text) => {
-        setEditing(!editing);
-        setEditText(text);
-    };
- 
+function TodoItem({ index, editingIndex, editText, todo, handleDelete, handleEdit, handleSave, setEditText }) {
+    
     return (
         <li className="item" key={index}>
-            {(editing) ? (
+            {editingIndex === index ? (
                 <input
                     type="text"
                     value={editText}
@@ -24,16 +14,16 @@ function TodoItem({ index, todo, handleDelete, handleSave }) {
                     <label htmlFor={`checkbox${index}`}>{todo}</label>
                 </>
             )}
-            {(editing) ? (
-                <span className="icon save-icon" onClick={() => { setEditing(!editing); handleSave(editText)}}>
+            {editingIndex === index ? (
+                <span className="icon save-icon" onClick={() => handleSave(index)}>
                     <i className="fas fa-save"></i>
                 </span>
             ) : (
-                <span className="icon edit-icon" onClick={() => handleEdit(todo)}>
+                <span className="icon edit-icon" onClick={() => handleEdit(index, todo)}>
                     <i className="fas fa-edit"></i>
                 </span>
             )}
-            <span className="icon trash-icon" onClick={() => handleDelete()}>
+            <span className="icon trash-icon" onClick={() => handleDelete(index)}>
                 <i className="fas fa-trash-alt"></i>
             </span>
         </li>

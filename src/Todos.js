@@ -1,20 +1,28 @@
+import React, { useState } from 'react';
 import TodoItem from './TodoItem';
 
 function Todos({ todos, setTodos }) {
 
-  const handleSave = (index, text) => {
-      console.log(text)
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editText, setEditText] = useState('');
+
+  const handleEdit = (index, text) => {
+      setEditingIndex(index);
+      setEditText(text);
+  };
+
+  const handleSave = (index) => {
       const updatedTodos = todos.map((todo, i) => {
           if (i === index) {
-              return text;
+              return editText;
           }
           return todo;
       });
       setTodos(updatedTodos);
+      setEditingIndex(null);
   };
 
   const handleDelete = (index) => {
-      console.log(index)
       const updatedTodos = todos.filter((_, i) => i !== index);
       setTodos(updatedTodos);
   };
@@ -27,9 +35,13 @@ function Todos({ todos, setTodos }) {
                 <TodoItem
                     key={index}
                     index={index}
+                    editingIndex={editingIndex}
+                    editText={editText}
                     todo={todo}
-                    handleSave={(updatedTodo) => handleSave(index, updatedTodo)}
-                    handleDelete={() => handleDelete(index)}
+                    handleEdit={handleEdit}
+                    handleSave={handleSave}
+                    handleDelete={handleDelete}
+                    setEditText={setEditText}
                 />
             ))}
         </ul>
